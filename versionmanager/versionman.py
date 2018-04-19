@@ -1,7 +1,8 @@
 """
 Usage:
-    versionman upgrade  PROJECT [--verbose] [--root-path=PATH]
-    versionman downgrade PROJECT [--verbose] [--root-path=PATH]
+    versionman upgrade  PROJECT [--verbose] [--root-path=PATH] [--commit]
+    versionman downgrade PROJECT [--verbose] [--root-path=PATH] [--commit]
+    versionman commit PROJECT [--verbose] [--root-path=PATH]
     versionman --version
     version -h | --help
 
@@ -10,6 +11,7 @@ Options:
     --root-path=PATH    Root path for search context of projects [default: C:\dev_\git]
     --version           Shows the version of VersionMan
     --verbose           Executes the commands more textual
+    --commit            Commits version changes immediately
 """
 
 from docopt import docopt
@@ -37,7 +39,7 @@ def log_function(func):
     return echo_func
 
 @log_function
-def upgrade(project_root_path):
+def upgrade(project_root_path, commit=False):
     print("[!] mvn version upgrade operation is started")
     success, out = mvn.get_version(project_root_path)
     if success:
@@ -48,11 +50,19 @@ def upgrade(project_root_path):
         success, out = mvn.set_version(project_root_path, new_version)
         if success:
             print("[!] Version updated.")
+            if commit:
+                print("[!] Committing version changes.")
+                success, out = mvn.commit(project_root_path)
+                if success:
+                    print("[!] Committing done.")
+                else:
+                    print(out)
         else:
             print(out)
 
+
 @log_function
-def downgrade(project_root_path):
+def downgrade(project_root_path, commit=False):
     print("[!] mvn version downgrade operation is started")
     success, out = mvn.get_version(project_root_path)
     if success:
@@ -63,6 +73,13 @@ def downgrade(project_root_path):
         success, out = mvn.set_version(project_root_path, new_version)
         if success:
             print("[!] Version updated.")
+            if commit:
+                print("[!] Committing version changes.")
+                success, out = mvn.commit(project_root_path)
+                if success:
+                    print("[!] Committing done.")
+                else:
+                    print(out)
         else:
             print(out)
 
@@ -74,6 +91,6 @@ if __name__ == '__main__':
     if len(PROJECTS) == 1:
         PROJECT_PATH = join(ROOT_PATH, PROJECTS[0])
         if ARGUMENTS['upgrade']:
-            upgrade(PROJECT_PATH)
+            upgrade(PROJECT_PATH, ARGUMENTS["--commit"])
         elif ARGUMENTS['downgrade']:
-            downgrade(PROJECT_PATH)
+            downgrade(PROJECT_PATH, ARGUMENTS["--commit"])

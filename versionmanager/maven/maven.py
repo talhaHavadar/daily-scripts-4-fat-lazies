@@ -19,6 +19,15 @@ def set_version(project_path, version):
         return True, version
     return False, out
 
+def commit(project_path):
+    process = subprocess.Popen(["mvn", "versions:commit"], shell=True, cwd=project_path,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    rcode = process.returncode
+    if rcode == 0:
+        return True, "committed"
+    return False, out
+
 def __clear_output__(output_string):
     output = []
     for line in output_string.splitlines():
