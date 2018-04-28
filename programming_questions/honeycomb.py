@@ -1,5 +1,4 @@
 """
-https://10xrecruit.kattis.com
 Problem B
 A bee larva living in a hexagonal cell of a large honeycomb decides to creep for a walk. 
 In each “step” the larva may move into any of the six adjacent cells and after n steps, 
