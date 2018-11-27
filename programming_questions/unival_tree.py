@@ -9,7 +9,7 @@ For example, the following tree has 5 unival subtrees:
   / \
  1   0
     / \
-   0   0
+   1   0
   / \
  1   1
 """
