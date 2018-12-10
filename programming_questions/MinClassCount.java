@@ -12,6 +12,34 @@ public class MinClassCount {
     For example, given [(30, 75), (0, 50), (60, 150)], you should return 2.
     * */
 
+    public static int minClassRoomNoSort(List<int[]> schedule) {
+        if (schedule.size() == 0) return 0;
+        if (schedule.size() == 1) return 1;
+        int classCount = 1;
+
+        int start = schedule.get(0)[0];
+        int end = schedule.get(0)[1];
+
+        for (int i = 1; i < schedule.size(); i++) {
+            int currStart = schedule.get(i)[0];
+            int currEnd = schedule.get(i)[1];
+            if (currStart >= start && currStart < end) {
+                classCount++;
+            } else if (currEnd > start && currEnd <= end) {
+                classCount++;
+            }
+            if (currStart > start) {
+                start = currStart;
+            }
+            if (currEnd < end) {
+                end = currEnd;
+            }
+        }
+
+        return classCount;
+
+    }
+    
     public static int minClassRoom(List<int[]> schedule) {
         if (schedule.size() == 0) return 0;
         if (schedule.size() == 1) return 1;
@@ -40,5 +68,6 @@ public class MinClassCount {
         sch.add(new int[] {0, 70});
         sch.add(new int[] {60, 150});
         System.out.println("Count: " + minClassRoom(sch));
+        System.out.println("Count(no-sort): " + minClassRoomNoSort(sch));
     }
 }
