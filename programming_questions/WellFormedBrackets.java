@@ -47,7 +47,9 @@ public class WellFormedBrackets {
         String sFalse2 = "((()";
         String sTrue2 = "()";
         String sFalse3 = "()]()";
-
+        /*
+        solution has some bugs and the other solution can be created by just using stacks so there is no fancy things :D 
+        */
         System.out.println("sTrue: " + isWellFormed(sTrue));
         System.out.println("sFalse: " + isWellFormed(sFalse));
         System.out.println("sFalse2: " + isWellFormed(sFalse2));
