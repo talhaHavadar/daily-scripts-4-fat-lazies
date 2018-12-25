@@ -21,12 +21,12 @@ public class SegregateArray {
         int rIndex = 0;
         int bIndex = arr.length - 1;
 
-        for (int i = 0; i <= bIndex; i++) {
+        for (int i = 0; i <= arr.length; i++) {
             if (arr[i] == 'R' && i != rIndex) {
                 swap(arr, rIndex, i);
                 rIndex++;
                 i--;
-            } else if (arr[i] == 'B' && i != bIndex) {
+            } else if (arr[i] == 'B' && i < bIndex) {
                 swap(arr, bIndex, i);
                 bIndex--;
                 i--;
@@ -36,7 +36,7 @@ public class SegregateArray {
     }
 
     public static void solution() {
-        char[] arr = new char[] {'R', 'B', 'R', 'R', 'B', 'R', 'G'};
+        char[] arr = new char[] {'G', 'G', 'R', 'B', 'R', 'B'};
         segregateArray(arr);
         for (char c : arr) {
             System.out.print(c + ", ");
