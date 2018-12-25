@@ -21,7 +21,7 @@ public class SegregateArray {
         int rIndex = 0;
         int bIndex = arr.length - 1;
 
-        for (int i = 0; i <= arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             if (arr[i] == 'R' && i != rIndex) {
                 swap(arr, rIndex, i);
                 rIndex++;
